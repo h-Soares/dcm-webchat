@@ -1,0 +1,119 @@
+:root {
+  --bg: #050608;
+  --brand-teal: #1094AB;
+  --brand-teal-deep: #1094AB;
+  --brand-yellow: #FCB421;
+  --panel: #1c2230;
+  --surface: #f7eee1;
+  --text: #3f3224;
+  --muted: #7b6753;
+  --accent: #FCB421;
+  --accent-hover: #df9e18;
+  --ring: #6ec7d7;
+  --shadow: 0 20px 40px rgba(0, 0, 0, 0.28);
+  --radius: 16px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Segoe UI", "Trebuchet MS", sans-serif;
+  background:
+    radial-gradient(circle at 14% 8%, rgba(252, 180, 33, 0.18), transparent 40%),
+    linear-gradient(135deg, var(--brand-teal), var(--brand-teal-deep) 46%, var(--bg));
+  color: #FFFFFF;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+}
+
+.card {
+  width: min(460px, 100%);
+  background: linear-gradient(180deg, #f9f1e6, var(--surface));
+  border: 1px solid #d9c0a1;
+  border-radius: var(--radius);
+  color: var(--text);
+  box-shadow: var(--shadow);
+  padding: 28px;
+  position: relative;
+  overflow: hidden;
+  animation: rise 420ms ease-out;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 6px;
+  background: linear-gradient(90deg, var(--brand-yellow), #f6e08d);
+}
+
+h1 {
+  margin: 0 0 10px;
+  font-size: 1.75rem;
+  color: #2f2418;
+  letter-spacing: 0.2px;
+}
+
+p {
+  margin: 0 0 18px;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: #5d4933;
+}
+
+input {
+  width: 100%;
+  border: 1px solid #b99b74;
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 1rem;
+  background: #fff8ef;
+  color: var(--text);
+  outline: none;
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+  margin-bottom: 12px;
+}
+
+input:focus {
+  border-color: var(--ring);
+  box-shadow: 0 0 0 3px rgba(143, 177, 255, 0.26);
+}
+
+button {
+  width: 100%;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 1rem;
+  font-weight: 700;
+  background: linear-gradient(180deg, #f3d460, var(--accent));
+  color: #2f2418;
+  cursor: pointer;
+  transition: background 160ms ease, transform 120ms ease, box-shadow 160ms ease;
+}
+button:hover {
+  background: var(--accent-hover);
+  box-shadow: 0 4px 12px rgba(252, 180, 33, 0.4);
+}
+button:active { transform: translateY(1px); }
+
+.error {
+  min-height: 1.2rem;
+  margin-top: 10px;
+  color: #a8341d;
+  font-size: 0.95rem;
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
