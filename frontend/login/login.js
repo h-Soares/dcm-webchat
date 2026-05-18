@@ -15,7 +15,8 @@ async function handleLoginSubmit(event) {
   }
 
   try {
-        const response = await fetch(`http://127.0.0.1:8081/check-username/${username}`);
+      // Valida no servidor se o nome já está em uso
+      const response = await fetch(`http://127.0.0.1:8081/check-username/${username}`);
         
         if (!response.ok) {
             const errorData = await response.json();
@@ -25,22 +26,8 @@ async function handleLoginSubmit(event) {
         
         localStorage.setItem("chat_username", username);
         
-        // Notificar o servidor SSE sobre o login
-        notifyUserLogin(username);
-        
         window.location.href = "../chat/chat.html";
     } catch (err) {
         console.error("Erro ao validar nome:", err);
     }
-}
-
-// Notificar o servidor SSE que um usuário fez login
-async function notifyUserLogin(username) {
-  try {
-    await fetch(`http://127.0.0.1:8080/api/notifications/notify-login/${username}`, {
-      method: "POST"
-    });
-  } catch (err) {
-    console.error("Erro ao notificar login:", err);
-  }
 }

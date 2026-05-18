@@ -1,0 +1,22 @@
+syntax = "proto3";
+package notification;
+
+option java_package = "com.hsoaresdev.notification_service";
+option java_multiple_files = true;
+
+service NotificationService {
+  rpc NotifyLogin (NotifyRequest) returns (NotifyResponse);
+  rpc NotifyUserCount (NotifyCountRequest) returns (NotifyResponse);
+}
+
+message NotifyRequest {
+  string username = 1;  // Username of the user who logged in.
+}
+
+message NotifyCountRequest {
+  int32 user_count = 1;
+}
+
+message NotifyResponse {
+  string status = 1;  // Status of the operation (e.g., "ok").
+}

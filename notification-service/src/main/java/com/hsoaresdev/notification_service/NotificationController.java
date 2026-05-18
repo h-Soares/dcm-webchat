@@ -19,14 +19,8 @@ public class NotificationController {
 		this.notificationSseService = notificationSseService;
 	}
 
-	@GetMapping(path = "", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+	@GetMapping(produces = MediaType.TEXT_EVENT_STREAM_VALUE)
 	public SseEmitter connect() {
 		return notificationSseService.connect();
-	}
-
-	@PostMapping("/notify-login/{username}") //possívelmente irei tirar, pois broadcast será chamado pelo cliente via gRPC
-	public ResponseEntity<Void> notifyLogin(@PathVariable String username) {
-		notificationSseService.broadcast("user_login", username);
-		return ResponseEntity.ok().build();
 	}
 }
