@@ -90,3 +90,6 @@ cd frontend
 python -m http.server 5500
 ```
 e depois acesse ```http://localhost:5500/login/login.html```
+
+## Deploy
+Acesse em: http://dcm-webchat.brazilsouth.cloudapp.azure.com/login/login.html
