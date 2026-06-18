@@ -26,7 +26,7 @@ async function handleLoginSubmit(event) {
         
         localStorage.setItem("chat_username", username);
         
-        window.location.href = "../chat/chat.html";
+        window.location.href = "/chat.html";
     } catch (err) {
         console.error("Erro ao validar nome:", err);
     }

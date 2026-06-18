@@ -11,7 +11,7 @@ let eventSource;
 
 // Se não tiver username, redireciona para login. Caso contrário, inicia WebSocket e SSE
 if (!username) {
-  window.location.href = "../login/login.html";
+  window.location.href = "/login.html";
 } else {
   welcome.textContent = `Logado como: ${username}`;
   startWebSocket(username);
@@ -21,7 +21,7 @@ if (!username) {
 // Logout: limpa username e redireciona para login
 logoutBtn.addEventListener("click", () => {
   localStorage.removeItem("chat_username");
-  window.location.href = "../login/login.html";
+  window.location.href = "/login.html";
 });
 
 // Enviar mensagem no chat via WebSocket

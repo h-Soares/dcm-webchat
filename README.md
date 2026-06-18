@@ -83,13 +83,13 @@ mvn spring-boot:run
 
 5 - Executar o frontend
 
-Abra `frontend/login/login.html` no navegador **ou** inicie um servidor HTTP referenciando a pasta ```frontend/```
+Abra `frontend/index.html` no navegador **ou** inicie um servidor HTTP referenciando a pasta ```frontend/```
 
 ```bash
 cd frontend
-python -m http.server 5500
+python -m http.server 80
 ```
-e depois acesse ```http://localhost:5500/login/login.html```
+e depois acesse ```http://localhost/```
 
 ## Deploy
-Acesse em: http://dcm-webchat.brazilsouth.cloudapp.azure.com/login/login.html
+Acesse em: http://dcm-webchat.brazilsouth.cloudapp.azure.com/
