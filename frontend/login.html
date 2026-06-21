@@ -10,14 +10,20 @@
 <body>
   <main class="card">
     <h1>Entrar no chat</h1>
-    <p>Digite seu nome para acessar o chat</p>
+    <p>Digite suas credenciais para acessar o chat</p>
 
     <form id="loginForm" novalidate>
-      <label for="username">Seu nome</label>
-      <input id="username" name="username" type="text" maxlength="30" autocomplete="name" required />
+      <label for="username">Nome de usuário</label>
+      <input id="username" name="username" type="text" maxlength="30" required />
+      
+      <label for="password">Senha</label>
+      <input id="password" name="password" type="password" required />
+
       <button type="submit">Entrar</button>
-      <p id="error" class="error"></p>
+      <p id="error"></p>
     </form>
+    
+    <p id="register">Não tem conta? <a href="register.html">Cadastre-se aqui</a></p>
   </main>
 </body>
 </html>

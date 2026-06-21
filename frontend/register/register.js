@@ -1,7 +1,8 @@
-const form = document.getElementById("loginForm");
+const form = document.getElementById("registerForm");
 const usernameInput = document.getElementById("username");
 const passwordInput = document.getElementById("password");
-const error = document.getElementById("error");
+const confirmPasswordInput = document.getElementById("confirmPassword");
+const errorMsg = document.getElementById("error");
 
 const API_BASE_URL = "http://127.0.0.1:8081";
 const ACCESS_TOKEN = "chat_access_token";
@@ -9,7 +10,7 @@ const REFRESH_TOKEN = "chat_refresh_token";
 
 checkExistingSession();
 
-form.addEventListener("submit", handleLoginSubmit);
+form.addEventListener("submit", handleRegisterSubmit);
 
 async function checkExistingSession() {
     const accessToken = localStorage.getItem(ACCESS_TOKEN);
@@ -62,36 +63,57 @@ async function refreshSession(refreshToken) {
     }
 }
 
-async function handleLoginSubmit(event) {
+async function handleRegisterSubmit(event) {
     event.preventDefault();
     const username = usernameInput.value.trim();
     const password = passwordInput.value;
+    const confirmPassword = confirmPasswordInput.value;
 
-    if (!username || !password) {
-        error.textContent = "Preencha todos os campos";
+    if (!username || !password || !confirmPassword) {
+        errorMsg.textContent = "Preencha todos os campos";
+        return;
+    }
+
+    if (password !== confirmPassword) {
+        errorMsg.textContent = "As senhas não coincidem";
         return;
     }
 
     try {
-        const response = await fetch(`${API_BASE_URL}/login`, {
+        const registerResponse = await fetch(`${API_BASE_URL}/register`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ username, password })
         });
 
-        if (!response.ok) {
-            const errorData = await response.json();
-            error.textContent = errorData.detail;
+        if (!registerResponse.ok) {
+            const errorData = await registerResponse.json();
+            errorMsg.textContent = errorData.detail;
             return;
         }
 
-        const data = await response.json();
+        await delay(1250); // Aguarda 1.250 segundos para fazer login após registro bem-sucedido
+
+        const loginResponse = await fetch(`${API_BASE_URL}/login`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username, password })
+        });
+
+        if (!loginResponse.ok) {
+            errorMsg.textContent = "Cadastro realizado, mas não foi possível autenticar";
+            return;
+        }
+
+        const data = await loginResponse.json();
         localStorage.setItem(ACCESS_TOKEN, data.access_token);
         localStorage.setItem(REFRESH_TOKEN, data.refresh_token);
-
         window.location.href = "/chat.html";
     } catch (err) {
-        error.textContent = "Erro ao conectar com o servidor";
-        console.error(err);
+        errorMsg.textContent = "Erro ao se conectar com o servidor";
     }
+}
+
+function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }

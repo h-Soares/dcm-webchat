@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cadastro | DCM Webchat</title>
+  <link rel="stylesheet" href="register/register.css" />
+  <script src="register/register.js" defer></script>
+</head>
+<body>
+  <main class="card">
+    <h1>Criar conta</h1>
+    <p>Escolha um nome de usuário único e uma senha</p>
+
+    <form id="registerForm" novalidate>
+      <label for="username">Nome de usuário</label>
+      <input id="username" name="username" type="text" maxlength="30" required />
+      
+      <label for="password">Senha</label>
+      <input id="password" name="password" type="password" required />
+
+      <label for="confirmPassword">Confirmar senha</label>
+      <input id="confirmPassword" name="confirmPassword" type="password" required />
+
+      <button type="submit">Cadastrar</button>
+      <p id="error"></p> </form>
+    
+    <p id="login">Já possui conta? <a href="login.html">Fazer login</a></p>
+  </main>
+</body>
+</html>

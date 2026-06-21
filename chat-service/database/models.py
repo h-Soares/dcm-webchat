@@ -2,7 +2,7 @@ from datetime import datetime
 from sqlmodel import SQLModel, Field, create_engine
 from pathlib import Path
 
-# Colocar o arquivo SQLite dentro da pasta "database" como chat.db e configurar o banco de de dados com ORM usando SQLModel.
+# Coloca o arquivo SQLite dentro da pasta "database" como chat.db e configura o banco de de dados com ORM usando SQLModel.
 DB_PATH = Path(__file__).resolve().parent / "chat.db"
 DATABASE_URL = f"sqlite:///{DB_PATH.as_posix()}"
 
@@ -20,3 +20,8 @@ class Message(SQLModel, table=True):
 
 def create_db():
     SQLModel.metadata.create_all(engine)
+
+class User(SQLModel, table=True):
+    id: int | None = Field(default=None, primary_key=True)
+    username: str = Field(unique=True, index=True)
+    password_hash: str

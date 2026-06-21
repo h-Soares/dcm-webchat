@@ -30,6 +30,7 @@ env.bak/
 venv.bak/
 .env
 .env.local
+chat-service/.env
 *.pth
 
 # Java/Maven

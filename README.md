@@ -4,7 +4,7 @@ Projeto final das disciplinas Sistemas Distribuídos e Introdução ao Desenvolv
 
 ## Resumo
 
-Este projeto consiste em um sistema de chat em tempo real que permite a vários usuários conversarem simultaneamente e receberem notificações sobre eventos relevantes da aplicação. O projeto foi estruturado de forma a separar as responsabilidades entre interface de apresentação, processamento de mensagens com conexão ao banco de dados e envio de notificações com gatilho via gRPC.
+Este projeto consiste em um sistema de chat em tempo real que permite a vários usuários conversarem simultaneamente e receberem notificações sobre eventos relevantes da aplicação. O projeto foi estruturado de forma a separar as responsabilidades entre interface de apresentação, processamento de mensagens com conexão ao banco de dados, autenticação JWT e envio de notificações com gatilho via gRPC.
 
 ## Estrutura do projeto
 
@@ -18,7 +18,7 @@ Serviço feito em Java com o framework Spring para implementar funcionalidades d
 
 ### Frontend
 
-Páginas de **login** e **chat** dinâmicas feitas com HTML, CSS e JavaScript que consomem API REST, WebSocket e SSE. 
+Páginas de **login** e **chat** dinâmicas feitas com HTML, CSS e JavaScript que consomem API REST, WebSocket e SSE e salvam tokens JWT.
 
 ## Principais tecnologias
 
@@ -29,6 +29,8 @@ Páginas de **login** e **chat** dinâmicas feitas com HTML, CSS e JavaScript qu
 **gRPC:** comunicação eficiente e definida entre os serviços de chat e de notificação para disparar notificações a partir do serviço de chat, que atua como cliente gRPC.
 
 **FastAPI:** framework web Python utilizado para disponibilizar endpoints de API REST e comunicação WebSocket.
+
+**Token JWT:** autenticação com access token de curta duração e refresh token de longa duração.
 
 **Spring Framework:** framework Java utilizado para disponibilizar comunicação SSE e implementação de servidor gRPC.
 
@@ -64,14 +66,24 @@ source .venv/bin/activate
 python -m pip install -r requirements.txt
 ```
 
-3 - Instalar dependências Java
+3 - Criar o arquivo `.env`
+
+Na pasta `chat-service/`, crie um arquivo `.env` com:
+
+```env
+JWT_SECRET_KEY=coloque-uma-chave-forte-aqui
+```
+
+Um exemplo pode ser encontrado em `chat-service/.env.example`
+
+4 - Instalar dependências Java
 
 ```bash
 cd notification-service
 mvn clean install -DskipTests
 ```
 
-4 - Executar os serviços
+5 - Executar os serviços
 
 ```bash
 cd chat-service
@@ -81,7 +93,7 @@ cd notification-service
 mvn spring-boot:run
 ```
 
-5 - Executar o frontend
+6 - Executar o frontend
 
 Abra `frontend/index.html` no navegador **ou** inicie um servidor HTTP referenciando a pasta ```frontend/```
 
@@ -91,5 +103,13 @@ python -m http.server 80
 ```
 e depois acesse ```http://localhost/```
 
-## Deploy
+## Autenticação JWT
+
+O login retorna `access_token` e `refresh_token`. Os tokens são utilizados para que não seja necessário fazer login constantemente na aplicação
+
+- `access_token` valida a autenticação e é utilizado pelo frontend para recuperar o nome do usuário e conectar ao WebSocket e demais serviços
+- Quando o `access_token` expirar, o frontend usa o `refresh_token` para obter novos tokens
+- Ao acessar a tela de login ou registro, a aplicação verifica se possui tokens e se eles são válidos, caso em que redireciona para o chat. Caso contrário, permanece em login ou registro
+
+## Deploy [FORA DO AR]
 Acesse em: http://dcm-webchat.brazilsouth.cloudapp.azure.com/
