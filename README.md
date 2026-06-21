@@ -111,5 +111,5 @@ O login retorna `access_token` e `refresh_token`. Os tokens são utilizados para
 - Quando o `access_token` expirar, o frontend usa o `refresh_token` para obter novos tokens
 - Ao acessar a tela de login ou registro, a aplicação verifica se possui tokens e se eles são válidos, caso em que redireciona para o chat. Caso contrário, permanece em login ou registro
 
-## Deploy [FORA DO AR]
-Acesse em: http://dcm-webchat.brazilsouth.cloudapp.azure.com/
+## Deploy
+Acesse em: http://143.107.137.62:9001/
